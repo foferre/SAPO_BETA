@@ -1,5 +1,5 @@
 @extends('layouts.logintemplate')
-
+@section('title','Login | SAPO')
 @section('content')
   <div class="row h-100 justify-content-center align-items-center">
       <div class="col-md-4">

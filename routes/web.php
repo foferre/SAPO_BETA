@@ -12,12 +12,18 @@
 */
 
 Route::get('/', function () {
-  return view('layouts.administration');
+  return view('dashboard.geral.visao_geral');
 })->middleware('auth');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('/dashboard', function(){
-  return view('layouts.dashboard');
-});
+  return view('dashboard.geral.visao_geral');
+})->middleware('auth');
+
+//Dashboard
+Route::resource('geral', 'Dashboard\Geral\GeralController')->middleware('auth');
+
+//Administracao
+Route::resource('administracao', 'Administration\AdminController')->middleware('auth');
