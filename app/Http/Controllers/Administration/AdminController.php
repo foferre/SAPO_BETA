@@ -39,6 +39,7 @@ class AdminController extends Controller
         'name' => ['required', 'string', 'max:255'],
         'school' => ['required', 'integer', 'max:255'],
         'type' => ['required', 'string', 'max:255'],
+        'avatar' => ['image', 'mimes:jpeg,png,jpg'],
       ]);
     }elseif(request('password') == '')
     {
@@ -47,6 +48,7 @@ class AdminController extends Controller
         'school' => ['required', 'integer', 'max:255'],
         'type' => ['required', 'string', 'max:255'],
         'username' => ['required', 'string', 'min:4','max:255', 'unique:users'],
+        'avatar' => ['image', 'mimes:jpeg,png,jpg'],
       ]);
     }elseif($user->username == request('username'))
     {
@@ -56,6 +58,7 @@ class AdminController extends Controller
         'type' => ['required', 'string', 'max:255'],
         'username' => ['required', 'string', 'min:4','max:255'],
         'password' => ['string', 'min:8', 'confirmed'],
+        'avatar' => ['image', 'mimes:jpeg,png,jpg'],
       ]);
       $user->password = bcrypt(request('password'));
     }else{
@@ -65,6 +68,7 @@ class AdminController extends Controller
         'type' => ['required', 'string', 'max:255'],
         'username' => ['required', 'string', 'min:4','max:255', 'unique:users'],
         'password' => ['string', 'min:8', 'confirmed'],
+        'avatar' => ['image', 'mimes:jpeg,png,jpg'],
       ]);
       $user->password = bcrypt(request('password'));
     }
@@ -73,6 +77,10 @@ class AdminController extends Controller
     $user->school = request('school');
     $user->type = request('type');
     $user->username = request('username');
+
+    if(isset($request['avatar'])) {
+      $user->addMediaFromRequest('avatar')->toMediaCollection('picture');
+    }
 
     if($user->save()){
       Session::flash('success', 'Alterações salvas!');

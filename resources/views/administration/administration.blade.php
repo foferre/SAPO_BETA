@@ -1,4 +1,4 @@
-@extends('layouts.administration', ['dash_class' => 'profile'])
+@extends('layouts.administration', ['active' => 'profile'])
 @section('title','Visão geral - SAPO')
 @section('content')
 <div class="container">
@@ -149,7 +149,12 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label form-control-label">Imagem de perfil (opcional)</label>
               <div class="col-md-9">
-                 <input type="file" id="avatar" name="avatar" class="form-control" >
+                 <input type="file" id="avatar" name="avatar" class="form-control {{$errors->has('avatar') ? ' is-invalid' : ''}}" accept="image/png, image/jpeg">
+                 @if ($errors->has('avatar'))
+                   <span class="invalid-feedback" role="alert">
+                     <strong>{{$errors->first('avatar')}}</strong>
+                   </span>
+                 @endif
               </div>
             </div>
             <div class="form-group row">
@@ -164,8 +169,9 @@
     </div>
       </div>
       <div class="col-lg-4 order-lg-1 text-center">
-          <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
-          <h6 class="mt-2">{{Auth::user()->name}}</h6>
+        <img src="{{Auth::user()->getFirstMediaUrl('picture', 'picture') }}" class="mx-auto img-fluid d-block rounded-circle" alt="avatar">
+        <hr>
+        <h6 class="mt-2">{{Auth::user()->name}}</h6>
       </div>
   </div>
 </div>
