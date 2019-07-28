@@ -28,3 +28,4 @@ Route::resource('geral', 'Dashboard\Geral\GeralController')->middleware('auth');
 //Administracao
 Route::resource('administracao', 'Administration\AdminController')->middleware('auth');
 Route::resource('avaliacao', 'Administration\ExamController')->middleware('auth');
+Route::resource('descritor', 'Administration\DescriptorController')->middleware('auth');

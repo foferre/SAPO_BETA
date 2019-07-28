@@ -51,14 +51,25 @@
       <div class="sidebar sidebar-dark bg-dark">
         <ul class="list-unstyled">
           <li class="{{($active == 'exams') ? 'active' : ''}}">
-            <a href="#sm_base" data-toggle="collapse">
+            <a href="#sm_exams" data-toggle="collapse">
               <i class="far fa-fw fa-file-alt"></i> Avaliações
             </a>
-            <ul id="sm_base" class="list-unstyled collapse">
+            <ul id="sm_exams" class="list-unstyled collapse">
               <li>
                 <a href="{{route('avaliacao.create')}}"><i class="fas fa-fw fa-plus text-success"></i> Criar avaliação</a></li>
               <li>
                 <a href="{{route('avaliacao.index')}}"><i class="fas fa-fw fa-pencil-alt text-warning"></i> Editar avaliação</a></li>
+            </ul>
+          </li>
+          <li class="{{($active == 'descriptors') ? 'active' : ''}}">
+            <a href="#sm_descriptors" data-toggle="collapse">
+              <i class="fas far-fw fa-tags"></i></i> Descritores
+            </a>
+            <ul id="sm_descriptors" class="list-unstyled collapse">
+              <li>
+                <a href="{{route('descritor.create')}}"><i class="fas fa-fw fa-plus text-success"></i> Criar descritor</a></li>
+              <li>
+                <a href="{{route('descritor.index')}}"><i class="fas fa-fw fa-pencil-alt text-warning"></i> Editar descritor</a></li>
             </ul>
           </li>
           <hr>

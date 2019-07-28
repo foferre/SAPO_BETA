@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Port_desc extends Model
 {
-    //
+    protected $fillable = ['idDescriptor', 'subject', 'class', 'description'];
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administration;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Session;
 use App\Exams;
 use App\Schools;
 use App\Subject;
@@ -14,6 +15,12 @@ use App\Grade;
 class ExamController extends Controller
 {
   public function index() //exams-edit
+  {
+    $exams = Exams::all();
+    return view('administration.exams.exams-edit', compact('exams'));
+  }
+
+  public function show() //exams-edit
   {
     $exams = Exams::all();
     return view('administration.exams.exams-edit', compact('exams'));
@@ -67,8 +74,11 @@ class ExamController extends Controller
   public function edit($id)
   {
     $schools = Schools::all();
-    $exams = Exams::find($id);
-    return view('administration.exams.edit', compact('exams', 'schools'));
+    $exam = Exams::find($id);
+    $subjects = Subject::all();
+    $sources = Source::all();
+    $grades = Grade::all();
+    return view('administration.exams.edit', compact('exam', 'schools', 'subjects', 'sources', 'grades'));
   }
 
   public function update(Request $request, $id)
@@ -97,16 +107,15 @@ class ExamController extends Controller
       ]);
     }
 
-    $exam = [
-      'idExam' => $request->get('idExam'),
-      'subject' => $request->get('subject'),
-      'qNumber' => $request->get('qNumber'),
-      'class' => $request->get('class'),
-      'scope' => $request->get('scope'),
-      'source' => $request->get('source'),
-      'description' => $request->get('description'),
-    ];
+    $exam->idExam = $request->get('idExam');
+    $exam->subject = $request->get('subject');
+    $exam->qNumber = $request->get('qNumber');
+    $exam->class = $request->get('class');
+    $exam->scope = $request->get('scope');
+    $exam->source = $request->get('source');
+    $exam->description = $request->get('description');
 
+    //Insere na $exam o gabarito de questões e descritores de acordo com o número de questões passados
     for($i=1; $i <= $request->get('qNumber'); $i++){
       $exam['q'.$i] = $request->get('q'.$i);
       $exam['d'.$i] = $request->get('d'.$i);
@@ -122,8 +131,12 @@ class ExamController extends Controller
   public function destroy($id)
   {
     $exam = Exams::find($id);
-    $exam->delete();
-    Session::flash('success', 'Avaliação "'.$exam->idExam.'" removida!');
-    return back();
+    if($exam->delete()){
+      Session::flash('success', 'Avaliação "'.$exam->idExam.'" removida!');
+      return back();
+    }else{
+      Session::flash('error', 'Erro ao remover avaliação "'.$exam->idExam.'"');
+      return back();
+    }
   }
 }
