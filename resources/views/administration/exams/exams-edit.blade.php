@@ -46,9 +46,9 @@
             @endif
             <td>{{$exam->class}}ª Série</td>
             @if($exam->source == "gf")
-            <td><i class="fab fa-google-drive"></i></td>
+            <td><i class="fab fa-google-drive fa-2x"></i></td>
             @elseif($exam->source == "ap")
-            <td><i class="fab fa-android"></i></td>
+            <td><i class="fab fa-android fa-2x"></i></td>
             @endif
             <td><a href="{{route('avaliacao.edit', $exam->id)}}" class="btn btn-icon btn-pill btn-primary" data-toggle="tooltip" title="Editar"><i class="fa fa-fw fa-edit"></i></a></td>
             <td>

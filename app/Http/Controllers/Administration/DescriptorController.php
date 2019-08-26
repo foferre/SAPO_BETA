@@ -50,7 +50,7 @@ class DescriptorController extends Controller
         $descriptor = new Math_desc([
           'idDescriptor' => $request->get('idDescriptor'),
           'class' => $request->get('class'),
-          'subject'=> $request->get('subject'),
+          //'subject'=> $request->get('subject'),
           'description' => $request->get('description'),
         ]);
         break;
@@ -58,7 +58,7 @@ class DescriptorController extends Controller
         $descriptor = new Port_desc([
           'idDescriptor' => $request->get('idDescriptor'),
           'class' => $request->get('class'),
-          'subject'=> $request->get('subject'),
+          //'subject'=> $request->get('subject'),
           'description' => $request->get('description'),
         ]);
         break;

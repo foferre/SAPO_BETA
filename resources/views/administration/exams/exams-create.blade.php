@@ -140,7 +140,10 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">#{{$i}}</span>
               </div>
-              <input type="text" id="d{{$i}}" name="d{{$i}}" class="form-control col-sm-12 col-md-12 col-lg-12">
+              <input list="desc{{$i}}" class="form-control descList col-sm-12 col-md-12 col-lg-12" id="d{{$i}}" name="d{{$i}}">
+              <datalist id="desc{{$i}}">
+
+              </datalist>
             </div>
           </div>
           @endfor

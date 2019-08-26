@@ -95,7 +95,7 @@ class ExamController extends Controller
         'source'=>'required',
         'description' => 'required',
       ]);
-    }else{ //Caso haja alteração na idExam, verificará se há outro registro com a mesma idExam
+    }else{ //Caso haja alteração na idExam, irá aceitar apenas se não existir outra idExam igual
       $this->validate($request,[
         'idExam'=>'required|unique:exams',
         'subject'=>'required',
