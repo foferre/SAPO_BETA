@@ -1,9 +1,9 @@
-@extends('layouts.administration', ['active' => 'descriptors'])
-@section('title','Editar avaliação - SAPO')
+@extends('layouts.administration', ['active' => 'users'])
+@section('title','Editar usuários - SAPO')
 @section('content')
 <div class="content-wrapper">
   <br>
-  <h3>Editar descritor</h3>
+  <h3>Editar usuários</h3>
   <br>
   @if(Session::has('success'))
   <div class="alert alert-success alert-dismissible" role="alert">
@@ -26,27 +26,29 @@
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">ID</th>
-            <th scope="col">Disciplina</th>
-            <th scope="col">Série</th>
+            <th scope="col">Usuário</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Escola</th>
+            <th scope="col">Acesso</th>
             <th class="actions">Editar</th>
             <th class="actions">Excluir</th>
           </tr>
         </thead>
         <tbody>
           {{$i=1}}
-          @foreach ($descriptors as $descriptor)
+          @foreach ($users as $user)
           <tr>
             <td>{{$i++}}</td>
-            <td>{{$descriptor->idDescriptor}}</td>
-            <td>{{$descriptor->subject}}</td>
-            <td>{{$descriptor->class}}ª Série</td>
-            <td><a href="{{route('descritor.edit', $descriptor->id)}}" class="btn btn-icon btn-pill btn-primary" data-toggle="tooltip" title="Editar"><i class="fa fa-fw fa-edit"></i></a></td>
+            <td>{{$user->username}}</td>
+            <td>{{$user->name}}</td>
+            <td>{{$user->school}}</td>
+            <td>{{$user->type}}</td>
+            <td><a href="{{route('usuario.edit', $user->id)}}" class="btn btn-icon btn-pill btn-primary" data-toggle="tooltip" title="Editar"><i class="fa fa-fw fa-edit"></i></a></td>
             <td>
-              <form action="{{route('descritor.destroy', $descriptor->id)}}" method="post">
+              <form action="{{route('usuario.destroy', $user->id)}}" method="post">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-icon btn-pill btn-danger" data-toggle="tooltip" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir o descritor {{$descriptor->idDescriptor}}?')"><i class="fa fa-fw fa-trash"></i></button>
+                <button type="submit" class="btn btn-icon btn-pill btn-danger" data-toggle="tooltip" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir o usuário {{$user->username}}?')"><i class="fa fa-fw fa-trash"></i></button>
               </form>
             </td>
           </tr>

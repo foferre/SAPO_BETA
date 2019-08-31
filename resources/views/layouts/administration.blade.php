@@ -73,11 +73,27 @@
             </ul>
           </li>
           <hr>
+          @if(Auth::user()->type == "Administrador")
+          <li class="{{($active == 'users') ? 'active' : ''}}">
+            <a href="#sm_users" data-toggle="collapse">
+              <i class="far fa-fw fa-user"></i> Usuários
+            </a>
+            <ul id="sm_users" class="list-unstyled collapse">
+              <li>
+                <a href="{{route('register')}}"><i class="fas fa-fw fa-plus text-success"></i> Cadastrar usuário</a>
+              </li>
+              <li>
+                <a href="{{route('usuario.index')}}"><i class="fas fa-fw fa-pencil-alt text-warning"></i> Editar usuário</a>
+              </li>
+            </ul>
+          </li>
+          @endif
           <li class="{{($active == 'profile') ? 'active' : ''}}">
             <a href="{{route('administracao.index')}}"><i class="far fa-fw fa-address-card"></i> Perfil</a></li>
           <li class="{{($active == 'about') ? 'active' : ''}}">
-            <a href="#"><i class="fas fa-fw fa-info"></i> Sobre</a></li>
-          </ul>
+            <a href="#"><i class="fas fa-fw fa-info"></i> Sobre</a>
+          </li>
+        </ul>
       </div>
 
 <!-- Conteúdo -->

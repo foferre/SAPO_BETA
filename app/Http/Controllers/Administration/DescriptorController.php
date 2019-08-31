@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use Session;
-use App\Math_desc;
-use App\Port_desc;
+use App\Descriptors;
 use App\Grade;
 use App\Subject;
 
@@ -15,18 +14,16 @@ class DescriptorController extends Controller
 {
   public function index() //descriptors-edit
   {
-    $math_descs = Math_desc::all();
-    $port_descs = Port_desc::all();
+    $descriptors = Descriptors::all();
     $subjects = Subject::all();
-    return view('administration.descriptors.descriptors-edit', compact('math_descs', 'port_descs', 'subjects'));
+    return view('administration.descriptors.descriptors-edit', compact('descriptors', 'subjects'));
   }
 
   public function show() //descriptors-edit
   {
-    $math_descs = Math_desc::all();
-    $port_descs = Port_desc::all();
+    $descriptors = Descriptors::all();
     $subjects = Subject::all();
-    return view('administration.descriptors.descriptors-edit', compact('math_descs', 'port_descs', 'subjects'));
+    return view('administration.descriptors.descriptors-edit', compact('descriptors', 'subjects'));
   }
 
   public function create() //descriptors-create
@@ -45,28 +42,12 @@ class DescriptorController extends Controller
       'description' => 'required',
     ]);
 
-    switch($request->subject){
-      case 'math':
-        $descriptor = new Math_desc([
-          'idDescriptor' => $request->get('idDescriptor'),
-          'class' => $request->get('class'),
-          //'subject'=> $request->get('subject'),
-          'description' => $request->get('description'),
-        ]);
-        break;
-      case 'port':
-        $descriptor = new Port_desc([
-          'idDescriptor' => $request->get('idDescriptor'),
-          'class' => $request->get('class'),
-          //'subject'=> $request->get('subject'),
-          'description' => $request->get('description'),
-        ]);
-        break;
-      default:
-        Session::flash('error', 'Erro - Disciplina não encontrada!');
-        return back();
-        break;
-    }
+    $descriptor = new Descriptors([
+      'idDescriptor' => $request->get('idDescriptor'),
+      'class' => $request->get('class'),
+      'subject'=> $request->get('subject'),
+      'description' => $request->get('description'),
+    ]);
 
     if($descriptor->save()){
       Session::flash('success', 'Descritor "'.$descriptor->idDescriptor.'" cadastrado com sucesso!');
@@ -77,41 +58,18 @@ class DescriptorController extends Controller
     }
   }
 
-  public function edit($desc)
+  public function edit($id)
   {
     $subjects = Subject::all();
     $grades = Grade::all();
+    $descriptor = Descriptors::find($id);
 
-    switch($desc['subject']){
-      case 'math':
-        $descriptor = Math_desc::find($desc['id']);
-        break;
-      case 'port':
-        $descriptor = Port_desc::find($desc['id']);
-        break;
-      default:
-        Session::flash('error', 'Erro - Disciplina não encontrada!');
-        return back();
-        break;
-    }
-
-    return view('administration.exams.edit', compact('descriptor', 'subjects', 'grades'));
+    return view('administration.descriptors.edit', compact('descriptor', 'subjects', 'grades'));
   }
 
-  public function update(Request $request, $desc)
+  public function update(Request $request, $id)
   {
-    switch($desc['subject']){
-      case 'math':
-        $descriptor = Math_desc::find($desc['id']);
-        break;
-      case 'port':
-        $descriptor = Port_desc::find($desc['id']);
-        break;
-      default:
-        Session::flash('error', 'Erro - Disciplina não encontrada!');
-        return back();
-        break;
-    }
+    $descriptor = Descriptors::find($id);
 
     $this->validate($request,[
       'idDescriptor'=>'required',
@@ -132,21 +90,9 @@ class DescriptorController extends Controller
     }
   }
 
-  public function destroy($desc)
+  public function destroy($id)
   {
-    //Define qual tabela o descritor pertence a partir de sua disciplina
-    switch($desc['subject']){
-      case 'math':
-        $descriptor = Math_desc::find($desc['id']);
-        break;
-      case 'port':
-        $descriptor = Port_desc::find($desc['id']);
-        break;
-      default:
-        Session::flash('error', 'Erro - Disciplina não encontrada!');
-        return back();
-        break;
-    }
+    $descriptor = Descriptors::find($id);
 
     if($descriptor->delete()){
       Session::flash('success', 'Descritor "'.$descriptor->idDescriptor.'" removido!');

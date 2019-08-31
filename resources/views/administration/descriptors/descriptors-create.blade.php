@@ -41,7 +41,7 @@
           <label for="subject">Disciplina</label>
           <select id="subject" name="subject" class="form-control col-md-3 col-lg-3" required>
             @foreach($subjects as $subject)
-            <option value="{{$subject->name}}">{{$subject->description}}</option>
+            <option value="{{$subject->description}}">{{$subject->description}}</option>
             @endforeach
           </select>
           @if($errors->has('subject'))

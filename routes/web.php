@@ -15,7 +15,10 @@ Route::get('/', function () {
   return view('dashboard.geral.visao_geral');
 })->middleware('auth');
 
-Auth::routes();
+Auth::routes([
+  'verify' => false,
+  'reset' => false
+]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('/dashboard', function(){
@@ -29,3 +32,4 @@ Route::resource('geral', 'Dashboard\Geral\GeralController')->middleware('auth');
 Route::resource('administracao', 'Administration\AdminController')->middleware('auth');
 Route::resource('avaliacao', 'Administration\ExamController')->middleware('auth');
 Route::resource('descritor', 'Administration\DescriptorController')->middleware('auth');
+Route::resource('usuario', 'Administration\UserController')->middleware('auth');
