@@ -3,7 +3,7 @@
 @section('content')
 <div class="content-wrapper">
   <br>
-  <h1>Cadastrar usuário</h1>
+  <h3>Cadastrar usuário</h3>
   <br>
   @if(Session::has('alert'))
   <div class="alert alert-success alert-dismissible" role="alert">
@@ -32,7 +32,6 @@
     <div class="card-body">
       <form method="POST" action="{{route('register')}}">
         @csrf
-
         <div class="form-group">
           <label for="username">Nome de usuário</label>
           <input type="text" id="username" name="username" class="form-control col-md-4 col-lg-4 {{$errors->has('username') ? ' is-invalid' : ''}}" placeholder="Nome de usuário" required autofocus>

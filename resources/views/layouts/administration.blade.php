@@ -27,13 +27,19 @@
 
         <div class="navbar-collapse collapse">
           <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a href="{{route('geral.index')}}" class="nav-link">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('administracao.index')}}" class="nav-link">Administração</a>
+            </li>
             <li class="nav-item dropdown">
               <a href="#" id="dd_user" class="nav-link dropdown-toggle" data-toggle="dropdown">
                 <img src="{{Auth::user()->getFirstMediaUrl('picture', 'thumb')}}" class="rounded-circle">
                 {{Auth::user()->name}}</a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dd_user">
                 <a href="{{route('administracao.index')}}" class="dropdown-item">Perfil</a>
-                <a href="#" class="dropdown-item">Sobre</a>
+                <!--<a href="#" class="dropdown-item">Sobre</a>-->
                 <a class="dropdown-item" href="{{ route('logout') }}"
                   onclick="event.preventDefault();
                   document.getElementById('logout-form').submit();">Sair</a>
@@ -50,6 +56,7 @@
     <div class="d-flex">
       <div class="sidebar sidebar-dark bg-dark">
         <ul class="list-unstyled">
+          @if(Auth::user()->type == "Administrador")
           <li class="{{($active == 'exams') ? 'active' : ''}}">
             <a href="#sm_exams" data-toggle="collapse">
               <i class="far fa-fw fa-file-alt"></i> Avaliações
@@ -73,7 +80,6 @@
             </ul>
           </li>
           <hr>
-          @if(Auth::user()->type == "Administrador")
           <li class="{{($active == 'users') ? 'active' : ''}}">
             <a href="#sm_users" data-toggle="collapse">
               <i class="far fa-fw fa-user"></i> Usuários
@@ -89,10 +95,11 @@
           </li>
           @endif
           <li class="{{($active == 'profile') ? 'active' : ''}}">
-            <a href="{{route('administracao.index')}}"><i class="far fa-fw fa-address-card"></i> Perfil</a></li>
-          <li class="{{($active == 'about') ? 'active' : ''}}">
-            <a href="#"><i class="fas fa-fw fa-info"></i> Sobre</a>
+            <a href="{{route('administracao.index')}}"><i class="far fa-fw fa-address-card"></i> Perfil</a>
           </li>
+          <!--<li class="{{($active == 'about') ? 'active' : ''}}">
+            <a href="#"><i class="fas fa-fw fa-info"></i> Sobre</a>
+          </li>-->
         </ul>
       </div>
 

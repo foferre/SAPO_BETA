@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Descriptors extends Model
 {
-    protected $fillable = ['idDescriptor', 'class', 'description', 'subject'];
+    protected $fillable = ['idDescriptor', 'class', 'subject', 'description'];
 }

@@ -35,7 +35,7 @@
           </tr>
         </thead>
         <tbody>
-          {{$i=1}}
+          <?php $i=1; ?>
           @foreach ($users as $user)
           <tr>
             <td>{{$i++}}</td>

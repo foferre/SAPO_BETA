@@ -35,9 +35,10 @@
           </tr>
         </thead>
         <tbody>
+          <?php $i=1; ?>
           @foreach ($exams as $exam)
           <tr>
-            <td>{{$exam->id}}</td>
+            <td>{{$i++}}</td>
             <td>{{$exam->idExam}}</td>
             @if($exam->subject == "math")
             <td>Matemática</td>

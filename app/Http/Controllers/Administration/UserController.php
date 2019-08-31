@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
 use Session;
+use Gate;
+
 use App\User;
 use App\Schools;
 use App\Type;
+use App\Descriptors;
 
 class UserController extends Controller
 {
@@ -30,90 +32,92 @@ class UserController extends Controller
     return view('administration.users.users-edit', compact('users', 'schools', 'types'));
   }
 
-  public function create()
-  {
-    $schools = Schools::all();
-    $types = Type::all();
-    return view('administration.users.users-create', compact('schools', 'types'));
-  }
-
-  public function store(Request $request)
-  {
-    $this->validate($request,[
-      'name'=> 'required',
-      'username'=> 'required', 'string', 'unique:users',
-      'password'=> 'required', 'string', 'confirmed',
-      'type' => 'required',
-      'school' => 'required',
-    ]);
-
-    $user = new User();
-
-    $user->name = 'Teste';
-    $user->username = 'Teste';
-    $user->password = Hash::make('adkosakd');
-    $user->type = 'asdojasjd';
-    $user->school = 'asdasd';
-
-    /*$user = User::create([
-      'name' => $request->get('name'),
-      'username' => $request->get('username'),
-      'password' => Hash::make($request->get('name')),
-      'type' => $request->get('type'),
-      'school' => $request->get('school'),
-    ]);*/
-    $user->save();
-    /*if(true){
-      Session::flash('success', 'Usuário "'.$user->username.'" cadastrado com sucesso!');
-      return back();
-    }else{
-      Session::flash('error', 'Falha ao registrar usuário!');
-      return back();
-    }*/
-    return back();
-  }
-
   public function edit($id)
   {
-    $subjects = Subject::all();
-    $grades = Grade::all();
-    $descriptor = Descriptors::find($id);
+    $user = User::find($id);
+    if(Gate::allows('isAdmin')){
+      $schools = Schools::all();
+      $types = Type::all();
+    }elseif(Gate::allows('isGeneral')){
+      $schools = Schools::all();
+      $types = Type::where('id', '!=', '1');
+    }else{
+      $schools = Schools::where('id', '=', $user->school)->get();
+      $types = Type::where('name', '=', $user->type)->get();
+    }
 
-    return view('administration.descriptors.edit', compact('descriptor', 'subjects', 'grades'));
+    return view('administration.users.edit', compact('user', 'schools', 'types'));
   }
 
   public function update(Request $request, $id)
   {
-    $descriptor = Descriptors::find($id);
+    $user = User::find($id);
 
-    $this->validate($request,[
-      'idDescriptor'=>'required',
-      'class'=>'required',
-      'subject'=>'required',
-      'description' => 'required',
-    ]);
-
-    $descriptor->idDescriptor = $request->get('idDescriptor');
-    $descriptor->class = $request->get('class');
-    $descriptor->subject = $request->get('subject');
-    $descriptor->description = $request->get('description');
-
-    if($descriptor->save()){
-      return redirect('descritor/index')->with('success', 'Alterações salvas com sucesso!');
+    if(request('password') == '' && $user->username == request('username'))
+    {
+      $this->validate($request,[
+        'name' => ['required', 'string', 'max:255'],
+        'school' => ['required', 'string', 'max:255'],
+        'type' => ['required', 'string', 'max:255'],
+        'avatar' => ['image', 'mimes:jpeg,png,jpg'],
+      ]);
+    }elseif(request('password') == '')
+    {
+      $this->validate($request,[
+        'name' => ['required', 'string', 'max:255'],
+        'school' => ['required', 'string', 'max:255'],
+        'type' => ['required', 'string', 'max:255'],
+        'username' => ['required', 'string', 'min:4','max:255', 'unique:users'],
+        'avatar' => ['image', 'mimes:jpeg,png,jpg'],
+      ]);
+    }elseif($user->username == request('username'))
+    {
+      $this->validate($request,[
+        'name' => ['required', 'string', 'max:255'],
+        'school' => ['required', 'string', 'max:255'],
+        'type' => ['required', 'string', 'max:255'],
+        'username' => ['required', 'string', 'min:4','max:255'],
+        'password' => ['string', 'min:4', 'confirmed'],
+        'avatar' => ['image', 'mimes:jpeg,png,jpg'],
+      ]);
+      $user->password = Hash::make(request('password'));
     }else{
-      return redirect('descritor/index')->with('success', 'Falha ao salvar alterações!');
+      $this->validate($request,[
+        'name' => ['required', 'string', 'max:255'],
+        'school' => ['required', 'string', 'max:255'],
+        'type' => ['required', 'string', 'max:255'],
+        'username' => ['required', 'string', 'min:4','max:255', 'unique:users'],
+        'password' => ['string', 'min:4', 'confirmed'],
+        'avatar' => ['image', 'mimes:jpeg,png,jpg'],
+      ]);
+      $user->password = Hash::make(request('password'));
+    }
+
+    $user->name = request('name');
+    $user->school = request('school');
+    $user->type = request('type');
+    $user->username = request('username');
+
+    if(isset($request['avatar'])) {
+      $user->addMediaFromRequest('avatar')->toMediaCollection('picture');
+    }
+
+    if($user->save()){
+      return redirect()->back()->with('alert','Alterações salvas!');
+    }else{
+      return redirect()->back()->with('alert','Erro ao salvar alterações');
     }
   }
 
   public function destroy($id)
   {
-    $descriptor = Descriptors::find($id);
+    $user = User::find($id);
 
-    if($descriptor->delete()){
-      Session::flash('success', 'Descritor "'.$descriptor->idDescriptor.'" removido!');
+    if($user->delete()){
+      Session::flash('success', 'Usuário "'.$user->username.'" excluído!');
       return back();
     }else{
-      Session::flash('error', 'Erro ao remover descritor "'.$descriptor->idDescriptor.'"');
+      Session::flash('error', 'Erro ao excluir o usuário "'.$user->username.'"');
       return back();
     }
   }

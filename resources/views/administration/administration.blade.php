@@ -20,16 +20,16 @@
           <div class="row">
             <div class="col-md-6">
               <h6><b>Escola</b></h6>
-              <p>{{$schoolName->name}}</p>
+              <p>{{Auth::user()->school}}</p>
               <br>
               <h6><b>Nível de acesso</b></h6>
               <br>
               <p>
-                @if(Auth::user()->type == "admin")
+                @if(Auth::user()->type == "Administrador")
                 <span class="alert alert-primary"><i class="fas fa-user-shield"></i> Administrador</span>
-                @elseif(Auth::user()->type == "general")
+                @elseif(Auth::user()->type == "Geral")
                 <span class="alert alert-success"><i class="fa fa-user"></i> Geral</span>
-                @elseif(Auth::user()->type == "school")
+                @elseif(Auth::user()->type == "Escola")
                 <span class="alert alert-danger"><i class="fas fa-graduation-cap"></i> Escola</span>
                 @endif
               </p>
@@ -62,6 +62,18 @@
             </button>
           </div>
           @endif
+          @if (count($errors) > 0)
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+          @endif
         </div>
         <!--Editar-->
         <div class="tab-pane" id="edit">
@@ -84,10 +96,10 @@
               <div class="col-lg-9">
                 <select id="school" name="school" class="form-control" required>
                   @foreach($schools as $school)
-                  @if(Auth::user()->school == $school->id)
-                  <option value="{{$school->id}}" selected>{{$school->name}}</option>
+                  @if(Auth::user()->school == $school->name)
+                  <option value="{{$school->name}}" selected>{{$school->name}}</option>
                   @else
-                  <option value="{{$school->id}}">{{$school->name}}</option>
+                  <option value="{{$school->name}}">{{$school->name}}</option>
                   @endif
                   @endforeach
                 </select>
@@ -103,10 +115,10 @@
               <div class="col-lg-9">
                 <select id="type" name="type" class="form-control" required>
                   @foreach($types as $type)
-                  @if(Auth::user()->type == $type->name)
-                  <option value="{{$type->name}}" selected>{{$type->description}}</option>
+                  @if(Auth::user()->type == $type->description)
+                  <option value="{{$type->description}}" selected>{{$type->description}}</option>
                   @else
-                  <option value="{{$type->name}}">{{$type->description}}</option>
+                  <option value="{{$type->description}}">{{$type->description}}</option>
                   @endif
                   @endforeach
                 </select>
@@ -169,7 +181,9 @@
     </div>
       </div>
       <div class="col-lg-4 order-lg-1 text-center">
-        <img src="{{Auth::user()->getFirstMediaUrl('picture', 'picture') }}" class="mx-auto img-fluid d-block rounded-circle" alt="avatar">
+        <object data="{{Auth::user()->getFirstMediaUrl('picture', 'picture')}}" type="image/jpg" class="mx-auto img-fluid d-block rounded-circle">
+          <img src="{{asset('images/default_picture.jpg')}}" alt="Foto de perfil" class="mx-auto img-fluid d-block rounded-circle">
+        </object>
         <hr>
         <h6 class="mt-2">{{Auth::user()->name}}</h6>
       </div>

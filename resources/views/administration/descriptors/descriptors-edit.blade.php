@@ -34,7 +34,7 @@
           </tr>
         </thead>
         <tbody>
-          {{$i=1}}
+          <?php $i=1; ?>
           @foreach ($descriptors as $descriptor)
           <tr>
             <td>{{$i++}}</td>

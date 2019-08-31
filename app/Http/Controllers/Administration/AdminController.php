@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administration;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Gate;
 use Session;
 
@@ -16,17 +17,17 @@ class AdminController extends Controller
 {
   public function index()
   {
-    //Dados de escolas cadastradas, tipos de usuários e o tipo do usuário logado
-    if (Gate::allows('isAdmin') || Gate::allows('isGeneral')) {
+    if(Gate::allows('isAdmin')){
       $schools = Schools::all();
       $types = Type::all();
-      $schoolName = Schools::where('id', '=', Auth()->user()->school)->first();
+    }elseif(Gate::allows('isGeneral')){
+      $schools = Schools::all();
+      $types = Type::where('id', '!=', 1)->get();
     }else{
-      $schools = Schools::where('id', '=', Auth()->user()->school)->get();
-      $types = Type::where('name', '=', Auth()->user()->type)->get();
-      $schoolName = Schools::where('id', '=', Auth()->user()->school)->first();
+      $schools = Schools::where('name', '=', Auth::user()->school)->get();
+      $types = Type::where('description', '=', Auth::user()->type)->get();
     }
-    return view('administration.administration', compact('schools', 'types', 'schoolName'));
+    return view('administration.administration', compact('schools', 'types'));
   }
 
   public function update(Request $request, $id)
@@ -37,7 +38,7 @@ class AdminController extends Controller
     {
       $this->validate($request,[
         'name' => ['required', 'string', 'max:255'],
-        'school' => ['required', 'integer', 'max:255'],
+        'school' => ['required', 'string', 'max:255'],
         'type' => ['required', 'string', 'max:255'],
         'avatar' => ['image', 'mimes:jpeg,png,jpg'],
       ]);
@@ -45,7 +46,7 @@ class AdminController extends Controller
     {
       $this->validate($request,[
         'name' => ['required', 'string', 'max:255'],
-        'school' => ['required', 'integer', 'max:255'],
+        'school' => ['required', 'string', 'max:255'],
         'type' => ['required', 'string', 'max:255'],
         'username' => ['required', 'string', 'min:4','max:255', 'unique:users'],
         'avatar' => ['image', 'mimes:jpeg,png,jpg'],
@@ -54,23 +55,23 @@ class AdminController extends Controller
     {
       $this->validate($request,[
         'name' => ['required', 'string', 'max:255'],
-        'school' => ['required', 'integer', 'max:255'],
+        'school' => ['required', 'string', 'max:255'],
         'type' => ['required', 'string', 'max:255'],
         'username' => ['required', 'string', 'min:4','max:255'],
-        'password' => ['string', 'min:8', 'confirmed'],
+        'password' => ['string', 'min:4', 'confirmed'],
         'avatar' => ['image', 'mimes:jpeg,png,jpg'],
       ]);
-      $user->password = bcrypt(request('password'));
+      $user->password = Hash::make(request('password'));
     }else{
       $this->validate($request,[
         'name' => ['required', 'string', 'max:255'],
-        'school' => ['required', 'integer', 'max:255'],
+        'school' => ['required', 'string', 'max:255'],
         'type' => ['required', 'string', 'max:255'],
         'username' => ['required', 'string', 'min:4','max:255', 'unique:users'],
-        'password' => ['string', 'min:8', 'confirmed'],
+        'password' => ['string', 'min:4', 'confirmed'],
         'avatar' => ['image', 'mimes:jpeg,png,jpg'],
       ]);
-      $user->password = bcrypt(request('password'));
+      $user->password = Hash::make(request('password'));
     }
 
     $user->name = request('name');

@@ -57,6 +57,6 @@ class User extends Authenticatable implements HasMedia
       $this->addMediaConversion('picture')
         ->crop('crop-center', 125, 125);
       $this->addMediaConversion('thumb')
-        ->crop('crop-center', 32, 32);
+        ->crop('crop-center', 24, 24);
     }
 }

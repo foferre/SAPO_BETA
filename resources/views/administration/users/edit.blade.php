@@ -1,167 +1,125 @@
-@extends('layouts.administration', ['active' => 'exams'])
-@section('title','Editar avaliação - SAPO')
+@extends('layouts.administration', ['active' => 'users'])
+@section('title','Editar usuário - SAPO')
 @section('content')
 <div class="content-wrapper">
   <br>
-  <h3>Editar avaliação - {{$exam->idExam}}</h3>
+  <h3>Editar usuário - {{$user->username}}</h3>
   <br>
-  @if(Session::has('success'))
+  @if(Session::has('alert'))
   <div class="alert alert-success alert-dismissible" role="alert">
-    {{Session::get('success')}}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  @elseif(Session::has('error'))
-  <div class="alert alert-danger alert-dismissible" role="alert">
-    {{Session::get('error')}}
+    {{ Session::get('alert') }}
+    @php
+    Session::forget('alert');
+    @endphp
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   @endif
+  @if (count($errors) > 0)
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+  @endif
 
   <div class="card mb-4">
     <div class="card-body">
-      <form method="POST" action="{{route('avaliacao.update', $exam->id)}}">
+      <form method="POST" action="{{route('usuario.update', $user->id)}}" enctype="multipart/form-data">
         @method('PATCH')
         @csrf
         <div class="form-group">
-          <label for="idExam">ID da avaliação</label>
-          <input type="text" id="idExam" name="idExam" class="form-control col-md-4 col-lg-4" placeholder="ID da avaliação" value="{{$exam->idExam}}" required autofocus>
-          @if($errors->has('idExam'))
+          <label for="username">Nome de usuário</label>
+          <input type="text" id="username" name="username" class="form-control col-md-4 col-lg-4 {{$errors->has('username') ? ' is-invalid' : ''}}" value="{{$user->username}}" required autofocus>
+          @if($errors->has('username'))
           <span class="invalid-feedback" role="alert">
-            <strong>{{$errors->first('idExam')}}</strong>
+            <strong>{{$errors->first('username')}}</strong>
           </span>
           @endif
         </div>
 
         <div class="form-group">
-          <label for="subject">Disciplina</label>
-          <select id="subject" name="subject" class="form-control col-md-3 col-lg-3" required>
-            @foreach($subjects as $subject)
-            @if($exam->subject == $subject->name)
-            <option value="{{$subject->name}}" selected>{{$subject->description}}</option>
+          <label for="password">Nova senha</label>
+          <input type="password" id="password" name="password" class="form-control  col-md-4 col-lg-4 {{$errors->has('password') ? ' is-invalid' : '' }}" placeholder="Digite uma nova senha">
+          <small id="passHelp" class="form-text text-muted">A senha deve conter no mínimo 4 caracteres</small>
+          @if ($errors->has('password'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{$errors->first('password') }}</strong>
+            </span>
+          @endif
+        </div>
+
+        <div class="form-group">
+          <label for="password-confirmation">Confirmar senha</label>
+          <input id="password-confirmation" name="password_confirmation" type="password" class="form-control col-md-4 col-lg-4" placeholder="Confirme a nova senha">
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+          <label for="name">Nome de perfil</label>
+          <input type="text" id="name" name="name" class="form-control col-md-6 col-lg-6 {{$errors->has('name') ? ' is-invalid' : '' }}" value="{{$user->name}}" required>
+          @if($errors->has('name'))
+          <span class="invalid-feedback" role="alert">
+            <strong>{{$errors->first('name')}}</strong>
+          </span>
+          @endif
+        </div>
+
+        <div class="form-group">
+          <label for="type">Nível de acesso</label>
+          <select id="type" name="type" class="form-control col-md-2 col-lg-2 {{$errors->has('type') ? ' is-invalid' : '' }}" required>
+            @foreach($types as $type)
+            @if($user->type == $type->description)
+            <option value="{{$type->description}}" selected>{{$type->description}}</option>
             @else
-            <option value="{{$subject->name}}">{{$subject->description}}</option>
+            <option value="{{$type->description}}">{{$type->description}}</option>
             @endif
             @endforeach
           </select>
-          @if($errors->has('subject'))
+          @if($errors->has('type'))
           <span class="invalid-feedback" role="alert">
-            <strong>{{$errors->first('subject')}}</strong>
+            <strong>{{$errors->first('type')}}</strong>
           </span>
           @endif
         </div>
 
         <div class="form-group">
-          <label for="description">Descrição</label>
-          <textarea type="text" id="description" name="description" class="form-control" required>{{$exam->description}}</textarea>
-          @if($errors->has('description'))
-          <span class="invalid-feedback" role="alert">
-            <strong>{{$errors->first('description')}}</strong>
-          </span>
-          @endif
-        </div>
-
-        <div class="form-group">
-          <label for="qNumber">Número de questões</label>
-          <input type="number" id="qNumber" name="qNumber" class="form-control col-md-1 col-lg-1" placeholder="nº" min="1" max="30" value="{{$exam->qNumber}}" required>
-          @if($errors->has('qNumber'))
-          <span class="invalid-feedback" role="alert">
-            <strong>{{$errors->first('qNumber')}}</strong>
-          </span>
-          @endif
-        </div>
-
-        <div class="form-group">
-          <label for="scope">Escopo da avaliação</label>
-          <select id="scope" name="scope" class="form-control col-md-6 col-lg-6" required>
+          <label for="school">Escola</label>
+          <select id="school" name="school" class="form-control col-md-6 col-lg-6 {{$errors->has('school') ? ' is-invalid' : '' }}" required>
             @foreach($schools as $school)
-            @if($exam->scope == $school->id)
-            <option value="{{$school->id}}" selected>{{$school->name}}</option>
+            @if($user->school == $school->name)
+            <option value="{{$school->name}}" selected>{{$school->name}}</option>
             @else
-            <option value="{{$school->id}}">{{$school->name}}</option>
+            <option value="{{$school->name}}">{{$school->name}}</option>
             @endif
             @endforeach
           </select>
-          <small id="scopeHelp" class="form-text text-muted">Determina quais perfis com acesso "Escola" poderão visualizar os resultados</small>
-          @if($errors->has('scope'))
+          @if($errors->has('school'))
           <span class="invalid-feedback" role="alert">
-            <strong>{{$errors->first('scope')}}</strong>
+            <strong>{{$errors->first('school')}}</strong>
           </span>
           @endif
         </div>
 
         <div class="form-group">
-          <label for="source">Fonte de dados</label>
-          <select id="source" name="source" class="form-control col-md-4 col-lg-4" required>
-            @foreach($sources as $source)
-            @if($exam->source == $source->name)
-            <option value="{{$source->name}}" selected>{{$source->description}}</option>
-            @else
-            <option value="{{$source->name}}">{{$source->description}}</option>
-            @endif
-            @endforeach
-          </select>
-          @if($errors->has('source'))
-          <span class="invalid-feedback" role="alert">
-            <strong>{{$errors->first('source')}}</strong>
-          </span>
+          <label for="avatar">Imagem de perfil (opcional)</label>
+          <input type="file" id="avatar" name="avatar" class="form-control {{$errors->has('avatar') ? ' is-invalid' : ''}}" accept="image/png, image/jpeg">
+          @if ($errors->has('avatar'))
+           <span class="invalid-feedback" role="alert">
+             <strong>{{$errors->first('avatar')}}</strong>
+           </span>
           @endif
         </div>
 
-        <div class="form-group">
-          <label for="class">Série</label>
-          <select id="class" name="class" class="form-control col-md-4 col-lg-4" required>
-            @foreach($grades as $grade)
-            @if($exam->class == $grade->name)
-            <option value="{{$grade->name}}" selected>{{$grade->description}}</option>
-            @else
-            <option value="{{$grade->name}}">{{$grade->description}}</option>
-            @endif
-            @endforeach
-          </select>
-          @if($errors->has('class'))
-          <span class="invalid-feedback" role="alert">
-            <strong>{{$errors->first('class')}}</strong>
-          </span>
-          @endif
-        </div>
-        <br>
         <hr>
-        <h3 class="text-center">Gabarito</h3>
-        <hr>
-        <h3>Questões</h3>
-        <br>
-        <div class="form-group row">
-          @for($i=1;$i<=30;$i++)
-          <div class="col-lg-2 col-md-2 col-sm-4">
-            <div class="input-group input-group-sm mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">#{{$i}}</span>
-              </div>
-              <input type="text" id="q{{$i}}" name="q{{$i}}" class="form-control col-sm-12 col-md-12 col-lg-12" value="{{$exam['q'.$i]}}" >
-            </div>
-          </div>
-          @endfor
-        </div>
-        <hr>
-        <h3>Descritores</h3>
-        <br>
-        <div class="form-group row">
-          @for($i=1;$i<=30;$i++)
-          <div class="col-lg-2 col-md-2 col-sm-4">
-            <div class="input-group input-group-sm mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">#{{$i}}</span>
-              </div>
-              <input type="text" id="d{{$i}}" name="d{{$i}}" class="form-control col-sm-12 col-md-12 col-lg-12" value="{{$exam['d'.$i]}}">
-            </div>
-          </div>
-          @endfor
-        </div>
-        <hr>
+
         <div class="form-group row">
           <div class="col-lg-9">
             <input type="reset" class="btn btn-secondary" value="Cancelar">
