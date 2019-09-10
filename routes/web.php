@@ -11,22 +11,24 @@
 |
 */
 
-Route::get('/', function () {
-  return view('dashboard.geral.visao_geral');
-})->middleware('auth');
+Route::get('/', 'Dashboard\Geral\GeralController@resGeral')->middleware('auth');
 
 Auth::routes([
   'verify' => false,
   'reset' => false
 ]);
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-Route::get('/dashboard', function(){
-  return view('dashboard.geral.visao_geral');
-})->middleware('auth');
+Route::get('/home', 'Dashboard\Geral\GeralController@resGeral')->name('home')->middleware('auth');
+Route::get('/dashboard', 'Dashboard\Geral\GeralController@resGeral')->middleware('auth');
 
 //Dashboard
-Route::resource('geral', 'Dashboard\Geral\GeralController')->middleware('auth');
+//>>Visão geral
+//>>>>Resultado geral
+Route::get('/dashboard/geral/resultado_geral', 'Dashboard\Geral\GeralController@resGeral')->middleware('auth');
+Route::get('/dashboard/geral/{id}/visualizar', 'Dashboard\Geral\GeralController@resShow')->middleware('auth');
+//>>>>Descritores
+Route::get('/dashboard/descritores/resultado_geral', 'Dashboard\Geral\GeralController@descGeral')->middleware('auth');
+Route::get('/dashboard/descritores/{id}/visualizar', 'Dashboard\Geral\GeralController@descShow')->middleware('auth');
 
 //Administracao
 Route::resource('administracao', 'Administration\AdminController')->middleware('auth');

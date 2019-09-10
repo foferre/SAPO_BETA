@@ -28,7 +28,7 @@
             <th scope="col">#</th>
             <th scope="col">ID</th>
             <th scope="col">Disciplina</th>
-            <th scope="col">Série</th>
+            <th scope="col">Série/Ano</th>
             <th scope="col">Dados</th>
             <th class="actions">Editar</th>
             <th class="actions">Excluir</th>
@@ -40,12 +40,8 @@
           <tr>
             <td>{{$i++}}</td>
             <td>{{$exam->idExam}}</td>
-            @if($exam->subject == "math")
-            <td>Matemática</td>
-            @elseif($exam->subject == "port")
-            <td>Português</td>
-            @endif
-            <td>{{$exam->class}}ª Série</td>
+            <td>{{$exam->subject}}</td>
+            <td>{{$exam->class}}º Ano</td>
             @if($exam->source == "gf")
             <td><i class="fab fa-google-drive fa-2x"></i></td>
             @elseif($exam->source == "ap")
@@ -64,4 +60,6 @@
         </tbody>
       </table>
       <script src="{{URL::to('js/datatables/language.js')}}"></script>
+    </div>
+  </div>
 @endsection

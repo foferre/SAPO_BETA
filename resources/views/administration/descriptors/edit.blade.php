@@ -42,9 +42,9 @@
           <select id="subject" name="subject" class="form-control col-md-3 col-lg-3" required>
             @foreach($subjects as $subject)
             @if($descriptor->subject == $subject->name)
-            <option value="{{$subject->name}}" selected>{{$subject->description}}</option>
+            <option value="{{$subject->description}}" selected>{{$subject->description}}</option>
             @else
-            <option value="{{$subject->name}}">{{$subject->description}}</option>
+            <option value="{{$subject->description}}">{{$subject->description}}</option>
             @endif
             @endforeach
           </select>

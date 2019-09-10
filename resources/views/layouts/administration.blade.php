@@ -23,12 +23,12 @@
 <!-- Menu horizontal -->
     <nav class="navbar navbar-expand navbar-dark bg-dark">
         <a class="sidebar-toggle mr-3" href="#"><i class="fa fa-bars"></i></a>
-        <a class="navbar-brand" href="{{route('geral.index')}}">SAPO</a>
+        <a class="navbar-brand" href="{{URL::to('dashboard/geral/resultado_geral')}}">SAPO</a>
 
         <div class="navbar-collapse collapse">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a href="{{route('geral.index')}}" class="nav-link">Dashboard</a>
+              <a href="{{URL::to('dashboard/geral/resultado_geral')}}" class="nav-link">Dashboard</a>
             </li>
             <li class="nav-item">
               <a href="{{route('administracao.index')}}" class="nav-link">Administração</a>

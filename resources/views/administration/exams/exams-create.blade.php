@@ -40,7 +40,7 @@
           <label for="subject">Disciplina</label>
           <select id="subject" name="subject" class="form-control col-md-3 col-lg-3" required>
             @foreach($subjects as $subject)
-            <option value="{{$subject->name}}">{{$subject->description}}</option>
+            <option value="{{$subject->description}}">{{$subject->description}}</option>
             @endforeach
           </select>
           @if($errors->has('subject'))
@@ -74,7 +74,7 @@
           <label for="scope">Escopo da avaliação</label>
           <select id="scope" name="scope" class="form-control col-md-6 col-lg-6" required>
             @foreach($schools as $school)
-            <option value="{{$school->id}}">{{$school->name}}</option>
+            <option value="{{$school->name}}">{{$school->name}}</option>
             @endforeach
           </select>
           <small id="scopeHelp" class="form-text text-muted">Determina quais perfis com acesso "Escola" poderão visualizar os resultados</small>

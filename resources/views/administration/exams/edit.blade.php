@@ -40,10 +40,10 @@
           <label for="subject">Disciplina</label>
           <select id="subject" name="subject" class="form-control col-md-3 col-lg-3" required>
             @foreach($subjects as $subject)
-            @if($exam->subject == $subject->name)
-            <option value="{{$subject->name}}" selected>{{$subject->description}}</option>
+            @if($exam->subject == $subject->description)
+            <option value="{{$subject->description}}" selected>{{$subject->description}}</option>
             @else
-            <option value="{{$subject->name}}">{{$subject->description}}</option>
+            <option value="{{$subject->description}}">{{$subject->description}}</option>
             @endif
             @endforeach
           </select>
@@ -78,10 +78,10 @@
           <label for="scope">Escopo da avaliação</label>
           <select id="scope" name="scope" class="form-control col-md-6 col-lg-6" required>
             @foreach($schools as $school)
-            @if($exam->scope == $school->id)
-            <option value="{{$school->id}}" selected>{{$school->name}}</option>
+            @if($exam->scope == $school->name)
+            <option value="{{$school->name}}" selected>{{$school->name}}</option>
             @else
-            <option value="{{$school->id}}">{{$school->name}}</option>
+            <option value="{{$school->name}}">{{$school->name}}</option>
             @endif
             @endforeach
           </select>

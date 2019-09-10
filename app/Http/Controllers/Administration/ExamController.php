@@ -42,7 +42,7 @@ class ExamController extends Controller
       'subject'=>'required',
       'qNumber'=>'required|numeric|max:30',
       'class'=>'required',
-      'scope'=>'required|numeric',
+      'scope'=>'required',
       'source'=>'required',
       'description' => 'required',
     ]);
@@ -91,7 +91,7 @@ class ExamController extends Controller
         'subject'=>'required',
         'qNumber'=>'required|numeric',
         'class'=>'required',
-        'scope'=>'required|numeric',
+        'scope'=>'required',
         'source'=>'required',
         'description' => 'required',
       ]);
@@ -101,7 +101,7 @@ class ExamController extends Controller
         'subject'=>'required',
         'qNumber'=>'required|numeric',
         'class'=>'required',
-        'scope'=>'required|numeric',
+        'scope'=>'required',
         'source'=>'required',
         'description' => 'required',
       ]);
