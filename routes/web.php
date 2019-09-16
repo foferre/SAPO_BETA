@@ -27,8 +27,19 @@ Route::get('/dashboard', 'Dashboard\Geral\GeralController@resGeral')->middleware
 Route::get('/dashboard/geral/resultado_geral', 'Dashboard\Geral\GeralController@resGeral')->middleware('auth');
 Route::get('/dashboard/geral/{id}/visualizar', 'Dashboard\Geral\GeralController@resShow')->middleware('auth');
 //>>>>Descritores
-Route::get('/dashboard/descritores/resultado_geral', 'Dashboard\Geral\GeralController@descGeral')->middleware('auth');
-Route::get('/dashboard/descritores/{id}/visualizar', 'Dashboard\Geral\GeralController@descShow')->middleware('auth');
+Route::get('/dashboard/geral/descritor_geral', 'Dashboard\Geral\GeralController@descGeral')->middleware('auth');
+Route::get('/dashboard/geral/{id}/descritores', 'Dashboard\Geral\GeralController@descShow')->middleware('auth');
+//>>Escolas
+//>>>>Resultado geral
+Route::get('/dashboard/escolas/resultado_geral', 'Dashboard\Escolas\SchoolController@resGeral')->middleware('auth');
+Route::get('/dashboard/escolas/{id}/buscar_escola', 'Dashboard\Escolas\SchoolController@schoolQuery')->middleware('auth');
+Route::post('/dashboard/escolas/visualizar', 'Dashboard\Escolas\SchoolController@resShow')->middleware('auth');
+//>>>>Descritores
+Route::get('/dashboard/escolas/descritor_geral', 'Dashboard\Escolas\SchoolController@descGeral')->middleware('auth');
+Route::get('/dashboard/escolas/{id}/visualizar', 'Dashboard\Escolas\SchoolController@resShow')->middleware('auth');
+/*>>>>Turmas
+Route::get('/dashboard/escolas/turmas_geral', 'Dashboard\Escolas\SchoolController@descGeral')->middleware('auth');
+Route::post('/dashboard/escolas/{id}/turmas', 'Dashboard\Escolas\SchoolController@descShow')->middleware('auth');*/
 
 //Administracao
 Route::resource('administracao', 'Administration\AdminController')->middleware('auth');

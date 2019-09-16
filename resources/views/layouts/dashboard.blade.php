@@ -24,7 +24,7 @@
 </head>
 <body class="bg-light">
   <!-- Menu horizontal -->
-      <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <nav class="navbar navbar-expand navbar-dark bg-grey">
           <a class="sidebar-toggle mr-3" href="#"><i class="fa fa-bars"></i></a>
           <a class="navbar-brand" href="{{URL::to('dashboard/geral/resultado_geral')}}">SAPO</a>
 
@@ -59,15 +59,29 @@
           <div class="d-flex">
             <div class="sidebar sidebar-dark bg-dark">
               <ul class="list-unstyled">
+                <li class="cd-label">Dashboard</li>
                 <li class="{{($active == 'general') ? 'active' : ''}}">
-                  <a href="#sm_exams" data-toggle="collapse">
+                  <a href="#sm_general" data-toggle="collapse">
                     <i class="fa fa-fw fa-tachometer-alt"></i> Visão geral
                   </a>
-                  <ul id="sm_exams" class="list-unstyled collapse">
+                  <ul id="sm_general" class="list-unstyled collapse">
                     <li>
                       <a href="{{URL::to('dashboard/geral/resultado_geral')}}"><i class="fas fa-chart-line"></i> Resultado geral</a></li>
                     <li>
-                      <a href="{{route('avaliacao.index')}}"><i class="fas fa-chart-bar"></i> Descritores</a></li>
+                      <a href="{{URL::to('dashboard/geral/descritor_geral')}}"><i class="fas fa-chart-bar"></i> Descritores</a></li>
+                  </ul>
+                </li>
+                <li class="{{($active == 'schools') ? 'active' : ''}}">
+                  <a href="#sm_schools" data-toggle="collapse">
+                    <i class="fas fa-fw fa-chalkboard-teacher"></i> Escolas
+                  </a>
+                  <ul id="sm_schools" class="list-unstyled collapse">
+                    <li>
+                      <a href="{{URL::to('dashboard/escolas/resultado_geral')}}"><i class="fas fa-chart-line"></i> Resultado geral</a></li>
+                    <li>
+                      <a href="{{URL::to('dashboard/escolas/descritor_geral')}}"><i class="fas fa-chart-bar"></i> Descritores</a></li>
+                    <li>
+                      <a href="{{URL::to('dashboard/escolas/turmas_geral')}}"><i class="fas fa-book-reader"></i> Turmas</a></li>
                   </ul>
                 </li>
               </ul>

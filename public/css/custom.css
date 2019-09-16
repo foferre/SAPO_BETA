@@ -10,3 +10,44 @@
   font-weight: bold;
   margin-bottom:0%;
 }
+.title-chart-desc{
+  font-family: Helvetica;
+  font-size: 10px;
+  font-weight: bold;
+}
+.number-chart-desc{
+  font-family: Helvetica;
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom:0%;
+}
+*:focus{
+  outline: none;
+}
+.sidebar .cd-label{
+  display: block;
+  padding: 1em 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #646a6f;
+  font-size: 0.7rem;
+  letter-spacing: .1em;
+}
+.descriptor-list{
+  max-height: 400px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  flex-wrap: nowrap;
+}
+.cd-main-header {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  height: 45px;
+  width: 100%;
+  background: #3e454c;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

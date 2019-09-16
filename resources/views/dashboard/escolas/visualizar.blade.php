@@ -1,4 +1,4 @@
-@extends('layouts.dashboard', ['active' => 'general'])
+@extends('layouts.dashboard', ['active' => 'schools'])
 @section('title','Resultado geral - SAPO')
 @section('content')
 <div class="container">

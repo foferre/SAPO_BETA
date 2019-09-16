@@ -1,9 +1,9 @@
 @extends('layouts.dashboard', ['active' => 'general'])
-@section('title','Visão geral - SAPO')
+@section('title','Descritores - SAPO')
 @section('content')
 <div class="container">
   <br>
-  <h3>Avaliações - Visão geral</h3>
+  <h3>Descritores - Visão geral</h3>
   <br>
   @if(session()->get('success'))
     <div class="alert alert-warning">
@@ -37,7 +37,7 @@
             <td><i class="fas fa-file-csv fa-2x"></i></td>
             @endif
             <td>
-              <a href="{{URL::to('/dashboard/geral/'.$exam->id.'/visualizar')}}" class="btn btn-primary fab fa-readme"></a>
+              <a href="{{URL::to('/dashboard/geral/'.$exam->id.'/descritores')}}" class="btn btn-primary fab fa-readme"></a>
             </td>
           </tr>
           @endforeach

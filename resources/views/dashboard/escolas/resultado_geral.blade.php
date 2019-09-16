@@ -1,4 +1,4 @@
-@extends('layouts.dashboard', ['active' => 'general'])
+@extends('layouts.dashboard', ['active' => 'schools'])
 @section('title','Visão geral - SAPO')
 @section('content')
 <div class="container">
@@ -29,6 +29,7 @@
           <tr>
             <td>{{$i++}}</td>
             <td>{{$exam->idExam}}</td>
+            <input type="hidden" name="id" value="{{$exam->id}}}">
             <td>{{$exam->subject}}</td>
             <td>{{$exam->class}}º Ano</td>
             @if($exam->source == "gf")
@@ -37,7 +38,7 @@
             <td><i class="fas fa-file-csv fa-2x"></i></td>
             @endif
             <td>
-              <a href="{{URL::to('/dashboard/geral/'.$exam->id.'/visualizar')}}" class="btn btn-primary fab fa-readme"></a>
+              <a href="{{URL::to('/dashboard/escolas/'.$exam->id.'/buscar_escola')}}" class="btn btn-primary fab fa-readme"></a>
             </td>
           </tr>
           @endforeach

@@ -21,7 +21,7 @@
 </head>
 <body class="bg-light">
 <!-- Menu horizontal -->
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <nav class="navbar navbar-expand navbar-dark bg-grey">
         <a class="sidebar-toggle mr-3" href="#"><i class="fa fa-bars"></i></a>
         <a class="navbar-brand" href="{{URL::to('dashboard/geral/resultado_geral')}}">SAPO</a>
 
@@ -56,6 +56,7 @@
     <div class="d-flex">
       <div class="sidebar sidebar-dark bg-dark">
         <ul class="list-unstyled">
+          <li class="cd-label">Administração</li>
           @if(Auth::user()->type == "Administrador")
           <li class="{{($active == 'exams') ? 'active' : ''}}">
             <a href="#sm_exams" data-toggle="collapse">

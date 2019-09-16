@@ -28,6 +28,7 @@ body {
 }
 
 .sidebar {
+    position: absolute;
     min-width: 230px;
     max-width: 230px;
     min-height: calc(100vh - 49px);
@@ -65,7 +66,7 @@ body {
     background: rgba(0, 0, 0, .15);
 }
 .sidebar-dark ul li a:hover, .sidebar-dark ul .active a {
-    color: rgba(255, 255, 255, 1);
+    color: rgba(40, 167, 69, 1);
     background: rgba(0, 0, 0, .15);
 }
 .sidebar-dark [aria-expanded="true"] {

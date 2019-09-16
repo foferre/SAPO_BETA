@@ -10,11 +10,12 @@ var chartGeneral = new Chart(ctxGeneral, {
       datalabels: {
         align: 'end',
         anchor: 'end',
-	      borderRadius: 0,
+	      borderRadius: 1,
 	      borderColor: 'rgb(144, 255, 151)',
-        borderWidth: 0,
-        backgroundColor: 'rgba(144, 255, 151, 0.3)',
-	      color: 'rgb(130, 130, 130)',
+        borderWidth: 1,
+        backgroundColor: 'rgba(144, 255, 151, 0.7)',
+	      color: 'rgb(50, 50, 50)',
+        display: 'true',
       }
     },
   {
@@ -24,11 +25,12 @@ var chartGeneral = new Chart(ctxGeneral, {
     datalabels: {
         align: 'end',
         anchor: 'end',
-      	borderRadius: 0,
+      	borderRadius: 1,
       	borderColor: 'rgb(255, 148, 148)',
-        borderWidth: 0,
-        backgroundColor: 'rgba(255, 148, 148, 0.3)',
-      	color: 'rgb(130, 130, 130)',
+        borderWidth: 1,
+        backgroundColor: 'rgba(255, 148, 148, 0.7)',
+      	color: 'rgb(50, 50, 50)',
+        display: 'auto',
       }
   }]
   },
