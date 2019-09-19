@@ -8,6 +8,9 @@
   Disciplina: {{$exam->subject}}<br>
   Série/Ano: {{$exam->class}}º ano<br>
   {{$exam->description}}
+  <span class="float-right">
+    <a href="{{URL::to('/dashboard/geral/descritor_geral')}}" class="btn btn-primary far fa-hand-point-left"> Voltar</a>
+  </span>
   <hr>
   <div class="card">
       <div class="card-header bg-white font-weight-bold">

@@ -8,6 +8,9 @@
   Disciplina: {{$exam->subject}}<br>
   Série/Ano: {{$exam->class}}º ano<br>
   {{$exam->description}}
+  <span class="float-right">
+    <a href="{{URL::to('/dashboard/geral/resultado_geral')}}" class="btn btn-primary far fa-hand-point-left"> Voltar</a>
+  </span>
   <hr>
   <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6">

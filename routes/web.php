@@ -33,7 +33,7 @@ Route::get('/dashboard/geral/{id}/descritores', 'Dashboard\Geral\GeralController
 //>>>>Resultado geral
 Route::get('/dashboard/escolas/resultado_geral', 'Dashboard\Escolas\SchoolController@resGeral')->middleware('auth');
 Route::get('/dashboard/escolas/{id}/buscar_escola', 'Dashboard\Escolas\SchoolController@schoolQuery')->middleware('auth');
-Route::post('/dashboard/escolas/visualizar', 'Dashboard\Escolas\SchoolController@resShow')->middleware('auth');
+Route::post('/dashboard/escolas/buscar_escola', 'Dashboard\Escolas\SchoolController@resShow')->middleware('auth');
 //>>>>Descritores
 Route::get('/dashboard/escolas/descritor_geral', 'Dashboard\Escolas\SchoolController@descGeral')->middleware('auth');
 Route::get('/dashboard/escolas/{id}/visualizar', 'Dashboard\Escolas\SchoolController@resShow')->middleware('auth');
