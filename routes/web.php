@@ -50,6 +50,12 @@ Route::get('/dashboard/turmas/descritor_geral', 'Dashboard\Turmas\ClassControlle
 Route::get('/dashboard/turmas/{id}/descritores', 'Dashboard\Turmas\ClassController@descQuery')->middleware('auth');
 Route::post('/dashboard/turmas/descritores', 'Dashboard\Turmas\ClassController@descShow')->middleware('auth');
 
+//>>Alunos
+//>>>>Boletim
+Route::get('/dashboard/alunos/avaliacoes', 'Dashboard\Alunos\StudentController@resGeral')->middleware('auth');
+Route::get('/dashboard/alunos/{id}/buscar_aluno', 'Dashboard\Alunos\StudentController@studentQuery')->middleware('auth');
+Route::post('/dashboard/alunos/buscar_aluno', 'Dashboard\Alunos\StudentController@studentShow')->middleware('auth');
+
 //Administracao
 Route::resource('administracao', 'Administration\AdminController')->middleware('auth');
 Route::resource('avaliacao', 'Administration\ExamController')->middleware('auth');

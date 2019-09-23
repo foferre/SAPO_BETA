@@ -93,6 +93,11 @@
                       <a href="{{URL::to('dashboard/turmas/descritor_geral')}}"><i class="fas fa-chart-bar"></i> Descritores</a></li>
                   </ul>
                 </li>
+                <li class="{{($active == 'student') ? 'active' : ''}}">
+                  <a href="{{URL::to('dashboard/alunos/avaliacoes')}}">
+                    <i class="fas fa-fw fa-book-reader"></i> Alunos
+                  </a>
+                </li>
               </ul>
             </div>
 

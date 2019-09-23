@@ -81,9 +81,6 @@
   <div class="row">
     <div class="col-lg-11 col-md-11 col-sm-11">
       <h1 class="text-center">Gabarito</h1>
-      <span class="float-right">
-        <button class="btn btn-success far fa-hand-point-left" onclick="downloadCSV()"> Download</button>
-      </span>
     </div>
   </div>
   <hr>
@@ -142,7 +139,6 @@
       </div>
     </div>
   </div>
-  <script src="{{URL::to('js/datatables/language.js')}}"></script>
   <script>
     var amount = {{$amount}};
     var qNumber = {{$exam->qNumber}};
@@ -151,6 +147,12 @@
     var descriptors = Object.values({!! json_encode($descriptors, JSON_HEX_TAG) !!});
   </script>
   <script type="text/javascript" src="{{URL::to('js/charts/generalChart.js')}}"></script>
+  <link rel="stylesheet" type="text/css"href="{{asset('css/template/buttons.datatables.min.css')}}">
+  <script src="{{URL::to('js/template/datatables.buttons.min.js')}}"></script>
+  <script src="{{URL::to('js/template/jszip.min.js')}}"></script>
+  <script src="{{URL::to('js/template/vfs_fonts.js')}}"></script>
+  <script src="{{URL::to('js/template/buttons.html5.min.js')}}"></script>
+  <script src="{{URL::to('js/datatables/language_template.js')}}"></script>
   @endif
 </div>
 @endsection
