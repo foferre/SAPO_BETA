@@ -29,6 +29,7 @@ Route::get('/dashboard/geral/{id}/visualizar', 'Dashboard\Geral\GeralController@
 //>>>>Descritores
 Route::get('/dashboard/geral/descritor_geral', 'Dashboard\Geral\GeralController@descGeral')->middleware('auth');
 Route::get('/dashboard/geral/{id}/descritores', 'Dashboard\Geral\GeralController@descShow')->middleware('auth');
+
 //>>Escolas
 //>>>>Resultado geral
 Route::get('/dashboard/escolas/resultado_geral', 'Dashboard\Escolas\SchoolController@resGeral')->middleware('auth');
@@ -36,10 +37,18 @@ Route::get('/dashboard/escolas/{id}/buscar_escola', 'Dashboard\Escolas\SchoolCon
 Route::post('/dashboard/escolas/buscar_escola', 'Dashboard\Escolas\SchoolController@resShow')->middleware('auth');
 //>>>>Descritores
 Route::get('/dashboard/escolas/descritor_geral', 'Dashboard\Escolas\SchoolController@descGeral')->middleware('auth');
-Route::get('/dashboard/escolas/{id}/visualizar', 'Dashboard\Escolas\SchoolController@resShow')->middleware('auth');
-/*>>>>Turmas
-Route::get('/dashboard/escolas/turmas_geral', 'Dashboard\Escolas\SchoolController@descGeral')->middleware('auth');
-Route::post('/dashboard/escolas/{id}/turmas', 'Dashboard\Escolas\SchoolController@descShow')->middleware('auth');*/
+Route::get('/dashboard/escolas/{id}/descritores', 'Dashboard\Escolas\SchoolController@descQuery')->middleware('auth');
+Route::post('/dashboard/escolas/descritores', 'Dashboard\Escolas\SchoolController@descShow')->middleware('auth');
+
+//>>Turmas
+//>>>>Resultado geral
+Route::get('/dashboard/turmas/resultado_geral', 'Dashboard\Turmas\ClassController@resGeral')->middleware('auth');
+Route::get('/dashboard/turmas/{id}/buscar_escola', 'Dashboard\Turmas\ClassController@schoolQuery')->middleware('auth');
+Route::post('/dashboard/turmas/buscar_escola', 'Dashboard\Turmas\ClassController@resShow')->middleware('auth');
+//>>>>Descritores
+Route::get('/dashboard/turmas/descritor_geral', 'Dashboard\Turmas\ClassController@descGeral')->middleware('auth');
+Route::get('/dashboard/turmas/{id}/descritores', 'Dashboard\Turmas\ClassController@descQuery')->middleware('auth');
+Route::post('/dashboard/turmas/descritores', 'Dashboard\Turmas\ClassController@descShow')->middleware('auth');
 
 //Administracao
 Route::resource('administracao', 'Administration\AdminController')->middleware('auth');

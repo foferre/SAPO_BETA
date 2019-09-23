@@ -1,4 +1,4 @@
-@extends('layouts.dashboard', ['active' => 'schools'])
+@extends('layouts.dashboard', ['active' => 'class'])
 @section('title','Descritores - SAPO')
 @section('content')
 <div class="container">
@@ -37,7 +37,7 @@
             <td><i class="fas fa-file-csv fa-2x"></i></td>
             @endif
             <td>
-              <a href="{{URL::to('/dashboard/escolas/'.$exam->id.'/descritores')}}" class="btn btn-primary fab fa-readme"></a>
+              <a href="{{URL::to('/dashboard/turmas/'.$exam->id.'/descritores')}}" class="btn btn-primary fab fa-readme"></a>
             </td>
           </tr>
           @endforeach

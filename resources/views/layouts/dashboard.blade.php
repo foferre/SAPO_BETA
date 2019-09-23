@@ -80,8 +80,17 @@
                       <a href="{{URL::to('dashboard/escolas/resultado_geral')}}"><i class="fas fa-chart-line"></i> Resultado geral</a></li>
                     <li>
                       <a href="{{URL::to('dashboard/escolas/descritor_geral')}}"><i class="fas fa-chart-bar"></i> Descritores</a></li>
+                  </ul>
+                </li>
+                <li class="{{($active == 'class') ? 'active' : ''}}">
+                  <a href="#sm_class" data-toggle="collapse">
+                    <i class="fas fa-fw fa-users"></i> Turmas
+                  </a>
+                  <ul id="sm_class" class="list-unstyled collapse">
                     <li>
-                      <a href="{{URL::to('dashboard/escolas/turmas_geral')}}"><i class="fas fa-book-reader"></i> Turmas</a></li>
+                      <a href="{{URL::to('dashboard/turmas/resultado_geral')}}"><i class="fas fa-chart-line"></i> Resultado geral</a></li>
+                    <li>
+                      <a href="{{URL::to('dashboard/turmas/descritor_geral')}}"><i class="fas fa-chart-bar"></i> Descritores</a></li>
                   </ul>
                 </li>
               </ul>

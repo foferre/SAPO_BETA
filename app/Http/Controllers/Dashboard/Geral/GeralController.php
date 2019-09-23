@@ -203,7 +203,7 @@ class GeralController extends Controller
 
   public function descGeral()
   {
-    if(Gate::allows('isAdmin'))
+    if(Gate::allows('isAdmin') || Gate::allows('isGeneral'))
     {
       $exams = Exams::all();
     }else{

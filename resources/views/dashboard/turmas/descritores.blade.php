@@ -1,4 +1,4 @@
-@extends('layouts.dashboard', ['active' => 'schools'])
+@extends('layouts.dashboard', ['active' => 'class'])
 @section('title','Descritores - SAPO')
 @section('content')
 <div class="container">
@@ -9,7 +9,7 @@
   Série/Ano: {{$exam->class}}º ano<br>
   {{$exam->description}}
   <span class="float-right">
-    <a href="{{URL::to('/dashboard/escolas/descritor_geral')}}" class="btn btn-primary far fa-hand-point-left"> Voltar</a>
+    <a href="{{URL::to('/dashboard/turmas/descritor_geral')}}" class="btn btn-primary far fa-hand-point-left"> Voltar</a>
   </span>
   <hr>
   @if(Session::has('error'))
@@ -22,7 +22,7 @@
   @endif
   <div class="card mb-4">
     <div class="card-body">
-      <form method="POST" action="{{url('/dashboard/escolas/descritores')}}">
+      <form method="POST" action="{{url('/dashboard/turmas/descritores')}}">
         @csrf
         <div class="form-group">
           <label for="school">Buscar resultado geral: </label>
@@ -35,6 +35,12 @@
             @endif
             @endforeach
           </select>
+        </div>
+        <div class="input-group mb-3 form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="class">{{$exam->class}}º</span>
+          </div>
+          <input type="text" name="class" class="form-control col-md-1 col-lg-1" aria-label="Class" aria-describedby="class" required>
         </div>
         <input type="hidden" name="exam" value="{{$exam->id}}}">
         <button type="submit" class="btn btn-primary fas fa-search"></button>
@@ -52,6 +58,12 @@
       <p class="text-center title-chart-desc">Média geral</p>
       <p class="text-center number-chart-desc">{{$average}}%</p>
       <p class="text-center text-muted">de {{$exam->qNumber}} questões</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <p>Escola: {{$currentschool}}</p>
+      <p>Turma: {{$exam->class}}º{{$currentclass}}</p>
     </div>
   </div>
   <div class="card">

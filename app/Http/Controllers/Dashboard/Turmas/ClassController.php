@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\Escolas;
+namespace App\Http\Controllers\Dashboard\Turmas;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -23,7 +23,7 @@ use App\Port_7;
 use App\Port_8;
 use App\Port_9;
 
-class SchoolController extends Controller
+class ClassController extends Controller
 {
   public function resGeral()
   {
@@ -33,14 +33,14 @@ class SchoolController extends Controller
     }else{
       $exams = Exams::where('scope','=','Geral')->orWhere('scope','=',Auth()->user()->school)->get();
     }
-    return view('dashboard.escolas.resultado_geral', compact('exams'));
+    return view('dashboard.turmas.resultado_geral', compact('exams'));
   }
 
   public function schoolQuery($id)
   {
     $exam = Exams::find($id);
     $schools = Schools::all();
-    return view('dashboard.escolas.buscar_escola', compact('exam', 'schools'));
+    return view('dashboard.turmas.buscar_escola', compact('exam', 'schools'));
   }
 
   public function resShow(Request $request)
@@ -49,6 +49,8 @@ class SchoolController extends Controller
     $exam = Exams::find($idExam);
     $school = $request->get('school');
     $schools = Schools::all();
+    $currentclass = $request->get('class');
+    $currentschool = $request->get('school');
     $subject = $exam->subject;
     $class = $exam->class;
     $source = $exam->source;
@@ -56,64 +58,64 @@ class SchoolController extends Controller
     if ($subject == 'Matemática'){
       if ($class == '4') {
         $match = ['idExam' => $exam->idExam, 'school' => $school];
-        $amount = Math_4::where($match)->count();
-        $exams = Math_4::where($match)->get();
+        $amount = Math_4::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Math_4::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '5') {
         $match = ['idExam' => $exam->idExam, 'school' => $school];
-        $amount = Math_5::where($match)->count();
-        $exams = Math_5::where($match)->get();
+        $amount = Math_5::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Math_5::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '6') {
         $match = ['idExam' => $exam->idExam, 'school' => $school];
-        $amount = Math_6::where($match)->count();
-        $exams = Math_6::where($match)->get();
+        $amount = Math_6::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Math_6::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '7') {
         $match = ['idExam' => $exam->idExam, 'school' => $school];
-        $amount = Math_7::where($match)->count();
-        $exams = Math_7::where($match)->get();
+        $amount = Math_7::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Math_7::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '8') {
         $match = ['idExam' => $exam->idExam, 'school' => $school];
-        $amount = Math_8::where($match)->count();
-        $exams = Math_8::where($match)->get();
+        $amount = Math_8::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Math_8::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '9') {
         $match = ['idExam' => $exam->idExam, 'school' => $school];
-        $amount = Math_9::where($match)->count();
-        $exams = Math_9::where($match)->get();
+        $amount = Math_9::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Math_9::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
     }elseif ($subject == 'Português'){
       if ($class == '4') {
         $match = ['idExam' => $exam->idExam, 'school' => $school];
-        $amount = Port_4::where($match)->count();
-        $exams = Port_4::where($match)->get();
+        $amount = Port_4::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Port_4::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '5') {
         $match = ['idExam' => $exam->idExam, 'school' => $school];
-        $amount = Port_5::where($match)->count();
-        $exams = Port_5::where($match)->get();
+        $amount = Port_5::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Port_5::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '6') {
         $match = ['idExam' => $exam->idExam, 'school' => $school];
-        $amount = Port_6::where($match)->count();
-        $exams = Port_6::where($match)->get();
+        $amount = Port_6::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Port_6::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '7') {
         $match = ['idExam' => $exam->idExam, 'school' => $school];
-        $amount = Port_7::where($match)->count();
-        $exams = Port_7::where($match)->get();
+        $amount = Port_7::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Port_7::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '8') {
         $match = ['idExam' => $exam->idExam, 'school' => $school];
-        $amount = Port_8::where($match)->count();
-        $exams = Port_8::where($match)->get();
+        $amount = Port_8::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Port_8::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '9') {
         $match = ['idExam' => $exam->idExam, 'school' => $school];
-        $amount = Port_9::where($match)->count();
-        $exams = Port_9::where($match)->get();
+        $amount = Port_9::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Port_9::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
     }
 
@@ -162,12 +164,12 @@ class SchoolController extends Controller
       $request->session()->forget('success');
       $request->session()->forget('error');
       Session::flash('success', 'Busca efetuada com sucesso!');
-      return view('dashboard.escolas.buscar_escola', compact('exam', 'schools', 'school', 'amount', 'average', 'hit', 'totalHit', 'miss', 'total', 'descriptors'));
+      return view('dashboard.turmas.buscar_escola', compact('exam', 'exams', 'currentschool', 'currentclass', 'schools', 'school', 'amount', 'average', 'hit', 'totalHit', 'miss', 'total', 'descriptors'));
     } catch (\Exception $e) {
       $request->session()->forget('success');
       $request->session()->forget('error');
       Session::flash('error', 'Nenhum resultado encontrado!');
-      return view('dashboard/escolas/buscar_escola', compact('exam', 'schools'));
+      return view('dashboard/turmas/buscar_escola', compact('exam', 'schools'));
     }
   }
 
@@ -179,14 +181,14 @@ class SchoolController extends Controller
     }else{
       $exams = Exams::where('scope','=','Geral')->orWhere('scope','=',Auth()->user()->school)->get();
     }
-    return view('dashboard.escolas.descritor_geral', compact('exams'));
+    return view('dashboard.turmas.descritor_geral', compact('exams'));
   }
 
   public function descQuery($id)
   {
     $exam = Exams::find($id);
     $schools = Schools::all();
-    return view('dashboard.escolas.descritores', compact('exam', 'schools'));
+    return view('dashboard.turmas.descritores', compact('exam', 'schools'));
   }
 
   public function descShow(Request $request)
@@ -194,6 +196,7 @@ class SchoolController extends Controller
     $idExam = $request->get('exam');
     $exam = Exams::find($idExam);
     $currentschool = $request->get('school');
+    $currentclass = $request->get('class');
     $schools = Schools::all();
     $subject = $exam->subject;
     $class = $exam->class;
@@ -202,64 +205,64 @@ class SchoolController extends Controller
     if ($subject == 'Matemática'){
       if ($class == '4') {
         $match = ['idExam' => $exam->idExam, 'school' => $currentschool];
-        $amount = Math_4::where($match)->count();
-        $exams = Math_4::where($match)->get();
+        $amount = Math_4::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Math_4::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '5') {
         $match = ['idExam' => $exam->idExam, 'school' => $currentschool];
-        $amount = Math_5::where($match)->count();
-        $exams = Math_5::where($match)->get();
+        $amount = Math_5::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Math_5::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '6') {
         $match = ['idExam' => $exam->idExam, 'school' => $currentschool];
-        $amount = Math_6::where($match)->count();
-        $exams = Math_6::where($match)->get();
+        $amount = Math_6::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Math_6::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '7') {
         $match = ['idExam' => $exam->idExam, 'school' => $currentschool];
-        $amount = Math_7::where($match)->count();
-        $exams = Math_7::where($match)->get();
+        $amount = Math_7::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Math_7::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '8') {
         $match = ['idExam' => $exam->idExam, 'school' => $currentschool];
-        $amount = Math_8::where($match)->count();
-        $exams = Math_8::where($match)->get();
+        $amount = Math_8::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Math_8::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '9') {
         $match = ['idExam' => $exam->idExam, 'school' => $currentschool];
-        $amount = Math_9::where($match)->count();
-        $exams = Math_9::where($match)->get();
+        $amount = Math_9::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Math_9::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
     }elseif ($subject == 'Português'){
       if ($class == '4') {
         $match = ['idExam' => $exam->idExam, 'school' => $currentschool];
-        $amount = Port_4::where($match)->count();
-        $exams = Port_4::where($match)->get();
+        $amount = Port_4::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Port_4::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '5') {
         $match = ['idExam' => $exam->idExam, 'school' => $currentschool];
-        $amount = Port_5::where($match)->count();
-        $exams = Port_5::where($match)->get();
+        $amount = Port_5::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Port_5::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '6') {
         $match = ['idExam' => $exam->idExam, 'school' => $currentschool];
-        $amount = Port_6::where($match)->count();
-        $exams = Port_6::where($match)->get();
+        $amount = Port_6::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Port_6::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '7') {
         $match = ['idExam' => $exam->idExam, 'school' => $currentschool];
-        $amount = Port_7::where($match)->count();
-        $exams = Port_7::where($match)->get();
+        $amount = Port_7::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Port_7::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '8') {
         $match = ['idExam' => $exam->idExam, 'school' => $currentschool];
-        $amount = Port_8::where($match)->count();
-        $exams = Port_8::where($match)->get();
+        $amount = Port_8::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Port_8::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
       if ($class == '9') {
         $match = ['idExam' => $exam->idExam, 'school' => $currentschool];
-        $amount = Port_9::where($match)->count();
-        $exams = Port_9::where($match)->get();
+        $amount = Port_9::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->count();
+        $exams = Port_9::where('class', 'like', $exam->class.'%'.$currentclass)->where($match)->get();
       }
     }
 
@@ -271,7 +274,6 @@ class SchoolController extends Controller
     $totalQuestion = array();
     $totalHit = 0;
     $total = 0;
-
     for ($i=1; $i <= $exam->qNumber; $i++){
       $hit[$i] = 0;
       $miss[$i] = 0;
@@ -339,12 +341,12 @@ class SchoolController extends Controller
       $request->session()->forget('success');
       $request->session()->forget('error');
       Session::flash('success', 'Busca efetuada com sucesso!');
-      return view('dashboard.escolas.descritores', compact('exam', 'currentschool', 'schools', 'amount', 'average', 'hit', 'totalHit', 'miss', 'total', 'descriptors','description', 'alternative', 'totalQuestion'));
+      return view('dashboard.turmas.descritores', compact('exam', 'currentschool', 'currentclass','schools', 'amount', 'average', 'hit', 'totalHit', 'miss', 'total', 'descriptors','description', 'alternative', 'totalQuestion'));
     } catch (\Exception $e) {
       $request->session()->forget('success');
       $request->session()->forget('error');
       Session::flash('error', 'Nenhum resultado encontrado!');
-      return view('dashboard/escolas/descritores', compact('exam', 'schools'));
+      return view('dashboard/turmas/descritores', compact('exam', 'schools'));
     }
   }
 }

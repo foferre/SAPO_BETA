@@ -1,5 +1,6 @@
 $(document).ready(function () {
   $('#tabela').DataTable( {
+    "scrollX": true,
     "language": {
       "decimal": "",
       "emptyTable":     "Nenhum dado disponível!",
