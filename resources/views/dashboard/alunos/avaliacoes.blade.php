@@ -29,7 +29,6 @@
           <tr>
             <td>{{$i++}}</td>
             <td>{{$exam->idExam}}</td>
-            <input type="hidden" name="id" value="{{$exam->id}}}">
             <td>{{$exam->subject}}</td>
             <td>{{$exam->class}}º Ano</td>
             @if($exam->source == "gf")

@@ -70,6 +70,8 @@
               <tr>
                 <th scope="col">Aluno</th>
                 <th scope="col">Turma</th>
+                <th scope="col">Avaliação</th>
+                <th scope="col">Escola</th>
                 <th class="actions">Visualizar</th>
               </tr>
             </thead>
@@ -77,10 +79,11 @@
               @foreach ($exams as $student)
               <tr>
                 <td>{{$student->student}}</td>
-                <input type="hidden" name="id" value="{{$student->id}}}">
                 <td>{{$student->class}}</td>
+                <td>{{$student->idExam}}</td>
+                <td>{{$student->school}}</td>
                 <td>
-                  <a href="{{URL::to('/dashboard/alunos/'.$student->id.'/buscar_aluno')}}" class="btn btn-primary fab fa-readme"></a>
+                  <a href="{{URL('/dashboard/alunos/'.$student->id.'/'.$exam->subject.'/'.$exam->class.'/'.$exam->id.'/buscar_aluno')}}" class="btn btn-primary fab fa-readme"></a>
                 </td>
               </tr>
               @endforeach

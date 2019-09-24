@@ -55,6 +55,7 @@ Route::post('/dashboard/turmas/descritores', 'Dashboard\Turmas\ClassController@d
 Route::get('/dashboard/alunos/avaliacoes', 'Dashboard\Alunos\StudentController@resGeral')->middleware('auth');
 Route::get('/dashboard/alunos/{id}/buscar_aluno', 'Dashboard\Alunos\StudentController@studentQuery')->middleware('auth');
 Route::post('/dashboard/alunos/buscar_aluno', 'Dashboard\Alunos\StudentController@studentShow')->middleware('auth');
+Route::get('/dashboard/alunos/{id}/{subject}/{class}/{idExam}/buscar_aluno', 'Dashboard\Alunos\StudentController@showTemplate')->middleware('auth');
 
 //Administracao
 Route::resource('administracao', 'Administration\AdminController')->middleware('auth');

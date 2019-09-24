@@ -124,15 +124,103 @@ class StudentController extends Controller
     return view('dashboard.alunos.buscar_aluno', compact('exams', 'exam', 'schools', 'currentschool', 'currentclass', 'currentstudent'));
   }
 
-  public function descGeral()
+  public function showTemplate($id, $subject, $class, $idExam)
   {
     if(Gate::allows('isAdmin') || Gate::allows('isGeneral'))
     {
-      $exams = Exams::all();
+      $schools = Schools::all();
     }else{
-      $exams = Exams::where('scope','=','Geral')->orWhere('scope','=',Auth()->user()->school)->get();
+      $schools = Schools::where('name','=',Auth()->user()->school)->get();
     }
-    return view('dashboard.turmas.descritor_geral', compact('exams'));
+
+
+    if ($subject == 'Matemática'){
+      if ($class == '4') {
+        $answers = Math_4::find($id);
+      }
+      if ($class == '5') {
+        $answers = Math_5::find($id);
+      }
+      if ($class == '6') {
+        $answers = Math_6::find($id);
+      }
+      if ($class == '7') {
+        $answers = Math_7::find($id);
+      }
+      if ($class == '8') {
+        $answers = Math_8::find($id);
+      }
+      if ($class == '9') {
+        $answers = Math_9::find($id);
+      }
+    }elseif ($subject == 'Português'){
+      if ($class == '4') {
+        $answers = Port_4::find($id);
+      }
+      if ($class == '5') {
+        $answers = Port_5::find($id);
+      }
+      if ($class == '6') {
+        $answers = Port_6::find($id);
+      }
+      if ($class == '7') {
+        $answers = Port_7::find($id);
+      }
+      if ($class == '8') {
+        $answers = Port_8::find($id);
+      }
+      if ($class == '9') {
+        $answers = Port_9::find($id);
+      }
+    }
+
+    $exam = Exams::find($idExam);
+    $hit = array();
+    $miss = array();
+    $descriptors = array();
+    $description = array();
+    $totalHit = 0;
+    $totalMiss = 0;
+    $total = 0;
+
+    for ($i=1; $i <= $exam->qNumber; $i++){
+      $hit[$i] = 0;
+      $miss[$i] = 0;
+      $descriptors[$i] = $i.') '.$exam['d'.$i];
+      $desc = Descriptors::where('idDescriptor','=',$exam['d'.$i])->where('class','=',$class)->where('subject','=',$subject)->first();
+      $description[$i] = $desc->description;
+    }
+
+    try {
+      if ($exam->source == "gf") {
+        for ($i=1; $i <= $exam->qNumber ; $i++){
+          if (substr($answers['q'.$i],1,1) == $exam['q'.$i]){
+            $hit[$i]++;
+            $totalHit++;
+          }else{
+            $miss[$i]++;
+          }
+          $total++;
+        }
+        $average = round(($totalHit / $total)*100);
+      }elseif ($exam->source == "ap") {
+        for ($i=1; $i <= $exam->qNumber ; $i++){
+          if ($answers['q'.$i] == $exam['q'.$i]){
+            $hit[$i]++;
+            $totalHit++;
+          }else{
+            $miss[$i]++;
+          }
+          $total++;
+        }
+        $average = round(($totalHit / $total)*100);
+      }
+      Session::flash('success', 'Busca efetuada com sucesso!');
+      return view ('dashboard.alunos.boletim', compact('exam', 'schools', 'answers', 'descriptors', 'description', 'hit', 'miss', 'totalHit', 'totalMiss', 'total', 'average'));
+    } catch (\Exception $e) {
+      Session::flash('error', 'Nenhum resultado encontrado!');
+      return view('/dashboard/alunos/buscar_aluno', compact('exam', 'schools'));
+    }
   }
 
   public function descQuery($id)
