@@ -183,6 +183,11 @@ class StudentController extends Controller
     $totalMiss = 0;
     $total = 0;
 
+    //CORRIGIR - Prova "PBPF2018" está com descritores da 9 serie
+    if($exam->idExam == "PBPF2018"){
+      $class = 9;
+    }
+
     for ($i=1; $i <= $exam->qNumber; $i++){
       $hit[$i] = 0;
       $miss[$i] = 0;
@@ -216,7 +221,7 @@ class StudentController extends Controller
         $average = round(($totalHit / $total)*100);
       }
       Session::flash('success', 'Busca efetuada com sucesso!');
-      return view ('dashboard.alunos.boletim', compact('exam', 'schools', 'answers', 'descriptors', 'description', 'hit', 'miss', 'totalHit', 'totalMiss', 'total', 'average'));
+      return view ('dashboard.alunos.boletim', compact('exam', 'schools', 'answers', 'descriptors', 'description', 'hit', 'totalHit', 'total', 'average'));
     } catch (\Exception $e) {
       Session::flash('error', 'Nenhum resultado encontrado!');
       return view('/dashboard/alunos/buscar_aluno', compact('exam', 'schools'));
