@@ -22,7 +22,7 @@
         <span class="float-right">Nota: <b>{{$average/10}}</b></span>
       </div>
       <div class="card-header text-center bg-white">
-        <b>Gabarito</b>
+        <h3><b>Gabarito</b></h3>
       </div>
       <div class="card-body">
         <div class="row">
@@ -39,12 +39,20 @@
                 @if($hit[$i] == 1)
                 <tr>
                   <td class="text-center table-success">{{$i}}</td>
+                  @if($exam->source == "gf")
                   <td class="text-center table-success" data-toggle="tooltip" data-placement="right" title="{{$descriptors[$i]}} - {{$description[$i]}}">{{substr($answers['q'.$i],1,1)}}</td>
+                  @elseif($exam->source == "ap")
+                  <td class="text-center table-success" data-toggle="tooltip" data-placement="right" title="{{$descriptors[$i]}} - {{$description[$i]}}">{{$answers['q'.$i]}}</td>
+                  @endif
                 </tr>
                 @else
                 <tr>
                   <td class="text-center table-danger">{{$i}}</td>
-                  <td class="text-center table-danger"data-toggle="tooltip" data-placement="right" title="{{$descriptors[$i]}} - {{$description[$i]}}">{{substr($answers['q'.$i],1,1)}}</td>
+                  @if($exam->source == "gf")
+                  <td class="text-center table-danger" data-toggle="tooltip" data-placement="right" title="{{$descriptors[$i]}} - {{$description[$i]}}">{{substr($answers['q'.$i],1,1)}}</td>
+                  @elseif($exam->source == "ap")
+                  <td class="text-center table-danger" data-toggle="tooltip" data-placement="right" title="{{$descriptors[$i]}} - {{$description[$i]}}">{{$answers['q'.$i]}}</td>
+                  @endif
                 </tr>
                 @endif
                 @endfor
@@ -64,12 +72,20 @@
                 @if($hit[$i] == 1)
                 <tr>
                   <td class="text-center table-success">{{$i}}</td>
+                  @if($exam->source == "gf")
                   <td class="text-center table-success" data-toggle="tooltip" data-placement="right" title="{{$descriptors[$i]}} - {{$description[$i]}}">{{substr($answers['q'.$i],1,1)}}</td>
+                  @elseif($exam->source == "ap")
+                  <td class="text-center table-success" data-toggle="tooltip" data-placement="right" title="{{$descriptors[$i]}} - {{$description[$i]}}">{{$answers['q'.$i]}}</td>
+                  @endif
                 </tr>
                 @else
                 <tr>
                   <td class="text-center table-danger">{{$i}}</td>
+                  @if($exam->source == "gf")
                   <td class="text-center table-danger" data-toggle="tooltip" data-placement="right" title="{{$descriptors[$i]}} - {{$description[$i]}}">{{substr($answers['q'.$i],1,1)}}</td>
+                  @elseif($exam->source == "ap")
+                  <td class="text-center table-danger" data-toggle="tooltip" data-placement="right" title="{{$descriptors[$i]}} - {{$description[$i]}}">{{$answers['q'.$i]}}</td>
+                  @endif
                 </tr>
                 @endif
                 @endfor
