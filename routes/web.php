@@ -57,6 +57,9 @@ Route::get('/dashboard/alunos/{id}/buscar_aluno', 'Dashboard\Alunos\StudentContr
 Route::post('/dashboard/alunos/buscar_aluno', 'Dashboard\Alunos\StudentController@studentShow')->middleware('auth');
 Route::get('/dashboard/alunos/{id}/{subject}/{class}/{idExam}/buscar_aluno', 'Dashboard\Alunos\StudentController@showTemplate')->middleware('auth');
 
+//>>PdfController
+
+//####################################################################################
 //Administracao
 Route::resource('administracao', 'Administration\AdminController')->middleware('auth');
 Route::resource('avaliacao', 'Administration\ExamController')->middleware('auth');

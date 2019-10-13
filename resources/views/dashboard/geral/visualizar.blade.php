@@ -8,8 +8,14 @@
   Disciplina: {{$exam->subject}}<br>
   Série/Ano: {{$exam->class}}º ano<br>
   {{$exam->description}}
+  <br><br>
+  <form action="index.html" method="post">
+
+  </form>
+  <a href="{{URL::to('/dashboard/geral/resultado_geral')}}" class="btn btn-outline-danger fas fa-file-pdf fa-2x"></a>
+  <button class="btn btn-outline-info" onClick="downloadChart()"><i class="fas fa-file-image fa-2x"></i></button>
   <span class="float-right">
-    <a href="{{URL::to('/dashboard/geral/resultado_geral')}}" class="btn btn-primary far fa-hand-point-left"> Voltar</a>
+    <a href="{{URL::to('/dashboard/geral/resultado_geral')}}" class="btn btn-outline-primary far fa-hand-point-left"> Voltar</a>
   </span>
   <hr>
   <div class="row">
@@ -37,7 +43,11 @@
     var hit = Object.values({!! json_encode($hit, JSON_HEX_TAG) !!});
     var miss = Object.values({!! json_encode($miss, JSON_HEX_TAG) !!});
     var descriptors = Object.values({!! json_encode($descriptors, JSON_HEX_TAG) !!});
+    var chartName = "{{$exam->idExam}}_Geral";
   </script>
   <script type="text/javascript" src="{{URL::to('js/charts/generalChart.js')}}"></script>
+  <script src="{{URL::to('js/template/html2canvas.min.js')}}"></script>
+  <script src="{{URL::to('js/template/filesaver.min.js')}}"></script>
+  <script src="{{URL::to('js/downloads/downloadChart.js')}}"></script>
 </div>
 @endsection

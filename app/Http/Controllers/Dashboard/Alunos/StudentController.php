@@ -187,7 +187,7 @@ class StudentController extends Controller
     if($exam->idExam == "PBPF2018"){
       $class = 9;
     }
-
+    
     for ($i=1; $i <= $exam->qNumber; $i++){
       $hit[$i] = 0;
       $miss[$i] = 0;

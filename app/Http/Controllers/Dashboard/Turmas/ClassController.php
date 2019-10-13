@@ -274,6 +274,12 @@ class ClassController extends Controller
     $totalQuestion = array();
     $totalHit = 0;
     $total = 0;
+
+    //CORRIGIR - Prova "PBPF2018" está com descritores da 9 serie
+    if($exam->idExam == "PBPF2018"){
+      $class = 9;
+    }
+
     for ($i=1; $i <= $exam->qNumber; $i++){
       $hit[$i] = 0;
       $miss[$i] = 0;
